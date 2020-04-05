@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<body th:fragment="navbar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light rounded font-weight-bold">
-    <a class="navbar-brand" href="/users/home">✳✶ 🎀 𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅 🎀 ✶✳</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded font-weight-bold" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <a class="navbar-brand" href="/" sec:authorize="isAnonymous()">✳✶ 🎀 𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅 🎀 ✶✳</a>
+    <a class="navbar-brand" href="/users/home" sec:authorize="isAuthenticated()">✳✶ 🎀 𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅 🎀 ✶✳</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse d-flex justify-content-end" sec:authorize="isAnonymous()">
+    <div class="collapse navbar-collapse justify-content-end navbarNav" sec:authorize="isAnonymous()">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
@@ -21,7 +19,7 @@
             </li>
         </ul>
     </div>
-    <div class="collapse navbar-collapse d-flex justify-content-end" sec:authorize="isAuthenticated()">
+    <div class="collapse navbar-collapse justify-content-end navbarNav" sec:authorize="isAuthenticated()">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <div class="dropdown show">
@@ -94,6 +92,3 @@
             }
         });
 </script>
-
-</body>
-</html>
