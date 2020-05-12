@@ -27,14 +27,14 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper mapper;
 
     @Override
-    public ProductServiceModel add(ProductServiceModel serviceModel) {
+    public ProductServiceModel addProduct(ProductServiceModel serviceModel) {
         var categories = new HashSet<Category>();
 
         serviceModel.getCategories()
                 .forEach(id -> categoryRepository.findById(id).ifPresent(categories::add));
 
         final Product product = mapper.map(serviceModel, Product.class);
-        product.setCategories(categories);
+//        product.setCategories(categories);
 
         return mapper.map(productRepository.saveAndFlush(product), ProductServiceModel.class);
     }
@@ -79,15 +79,15 @@ public class ProductServiceImpl implements ProductService {
                         product.setDescription(editModel.getDescription());
                     }
 
-                    if (editModel.getCategories().size() != product.getCategories().size()) {
-                        var categories = new HashSet<Category>();
-
-                        editModel.getCategories()
-                                .forEach(cid -> categoryRepository.findById(cid)
-                                        .ifPresent(categories::add));
-
-                        product.setCategories(categories);
-                    }
+//                    if (editModel.getCategories().size() != product.getCategories().size()) {
+//                        var categories = new HashSet<Category>();
+//
+//                        editModel.getCategories()
+//                                .forEach(cid -> categoryRepository.findById(cid)
+//                                        .ifPresent(categories::add));
+//
+//                        product.setCategories(categories);
+//                    }
 
                     productRepository.saveAndFlush(product);
                 }, () -> {

@@ -24,7 +24,7 @@
             <li class="nav-item active">
                 <div class="dropdown show">
                     <a class="nav-link active dropdown-toggle" href="#" role="button" id="cartDropdown"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showCartContent()">
                         Cart
                     </a>
                     <div id="cart-contents" class="dropdown-menu" aria-labelledby="cartDropdown">
@@ -36,7 +36,7 @@
                 </div>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/orders/my">My Orders</a>
+                <a class="nav-link" href="/groceryLists/my">My Orders</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/users/profile">Profile</a>
@@ -66,7 +66,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="adminDropdown">
                         <a class="dropdown-item" href="/users/all">All Users</a>
-                        <a class="dropdown-item" href="/orders/all">All Orders</a>
+                        <a class="dropdown-item" href="/groceryLists/all">All Orders</a>
                     </div>
                 </div>
             </li>
@@ -79,16 +79,3 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    fetch('http://localhost:8000/orders/fetch/')
-        .then((res) => res.json())
-        .then((json) => {
-            if (json.length === 0) {
-                $('#cart-contents').prepend(`<div class="dropdown-item text-center">Cart Empty!</div>`);
-            } else {
-                json.forEach((order) => $('#cart-contents')
-                    .prepend(`<div class="dropdown-item text-center">${order.productName} x${order.quantity}</div>`));
-            }
-        });
-</script>

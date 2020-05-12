@@ -2,23 +2,26 @@ package com.mkolongo.product_shop.domain.models.binding;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class UserRegisterModel {
 
-    @NotBlank(message = "Invalid username!")
-    private String username;
+    @NotBlank(message = "First name required!")
+    @Length(max = 2, message = "First name must be at least 2 characters long!")
+    private String firstName;
 
-    @NotBlank(message = "Invalid password!")
+    @NotBlank(message = "Last name required!")
+    @Length(max = 2, message = "Last name must be at least 2 characters long!")
+    private String lastName;
+
+    @NotBlank(message = "Password required!")
+    @Length(min = 6, message = "Password must be at least 6 characters long!")
     private String password;
-
-    @NotBlank(message = "Invalid confirm password!")
-    private String confirmPassword;
 
     @Email(regexp = "^\\w+[.\\w]*@\\w+[.\\w]*", message = "Invalid email address!")
     private String email;

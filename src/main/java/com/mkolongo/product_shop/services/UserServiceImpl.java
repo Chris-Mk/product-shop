@@ -1,8 +1,9 @@
 package com.mkolongo.product_shop.services;
 
+import com.mkolongo.product_shop.domain.entities.Product;
 import com.mkolongo.product_shop.domain.entities.Role;
 import com.mkolongo.product_shop.domain.entities.User;
-import com.mkolongo.product_shop.domain.entities.UserPrincipal;
+import com.mkolongo.product_shop.domain.models.UserPrincipal;
 import com.mkolongo.product_shop.domain.models.binding.UserEditModel;
 import com.mkolongo.product_shop.domain.models.service.UserServiceModel;
 import com.mkolongo.product_shop.domain.models.view.UserProfileModel;
@@ -33,10 +34,10 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper mapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        return userRepository.findUserByUsername(username)
+    public UserDetails loadUserByUsername(String email) {
+        return userRepository.findUserByEmail(email)
                 .map(UserPrincipal::new)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username <u>" + username + "</u> does not exist!"));
+                .orElseThrow(() -> new UsernameNotFoundException("User with email <u>" + email + "</u> does not exist!"));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
             setRole(user);
-            userRepository.saveAndFlush(user);
+            userRepository.save(user);
         }
     }
 
@@ -152,12 +153,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isUserValid(UserServiceModel serviceModel) {
-        if (userRepository.findUserByUsername(serviceModel.getUsername()).isPresent()) {
-            throw new UsernameExistException("Username " + serviceModel.getUsername() + " is taken!");
-        } else if (userRepository.findUserByEmail(serviceModel.getEmail()).isPresent()) {
+        if (userRepository.findUserByEmail(serviceModel.getEmail()).isPresent()) {
             throw new EmailExistException("Email " + serviceModel.getEmail() + " is taken!");
-        } else if (!serviceModel.getPassword().equals(serviceModel.getConfirmPassword())) {
-            throw new PasswordsDontMatchException("Passwords dont match!");
         }
         return true;
     }
@@ -165,10 +162,6 @@ public class UserServiceImpl implements UserService {
     private void setRole(User user) {
         if (userRepository.count() == 0) {
             user.setRoles(Set.of(Role.ROLE_ROOT, Role.ROLE_ADMIN, Role.ROLE_MODERATOR, Role.ROLE_USER));
-        } else if (userRepository.count() == 1) {
-            user.setRoles(Set.of(Role.ROLE_ADMIN, Role.ROLE_MODERATOR, Role.ROLE_USER));
-        } else if (userRepository.count() == 2) {
-            user.setRoles(Set.of(Role.ROLE_MODERATOR, Role.ROLE_USER));
         } else {
             user.setRoles(Set.of(Role.ROLE_USER));
         }

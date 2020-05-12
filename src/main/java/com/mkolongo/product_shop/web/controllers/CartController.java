@@ -1,6 +1,6 @@
 package com.mkolongo.product_shop.web.controllers;
 
-import com.mkolongo.product_shop.services.OrderService;
+import com.mkolongo.product_shop.services.GroceryListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,12 +18,12 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final OrderService orderService;
+    private final GroceryListService groceryListService;
 
     @GetMapping("/details")
     @PreAuthorize("isAuthenticated()")
     public String details(Model model, Principal principal) {
-        var orders = orderService.getOrdersByCustomerName(principal.getName());
+        var orders = groceryListService.getOrdersByCustomerName(principal.getName());
         final BigDecimal totalPrice = orders.stream()
                 .map(o -> o.getTotalPrice().multiply(BigDecimal.valueOf(o.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -40,7 +40,7 @@ public class CartController {
 
     @PostMapping("/remove/{id}")
     public String remove(@PathVariable String id) {
-        orderService.delete(id);
+        groceryListService.delete(id);
         return "redirect:/cart/details";
     }
 }

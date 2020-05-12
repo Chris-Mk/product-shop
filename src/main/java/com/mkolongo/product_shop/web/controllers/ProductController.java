@@ -36,7 +36,7 @@ public class ProductController {
             return "add-product";
         }
 
-        productService.add(mapper.map(bindingModel, ProductServiceModel.class));
+        productService.addProduct(mapper.map(bindingModel, ProductServiceModel.class));
         return "redirect:/products/all";
     }
 

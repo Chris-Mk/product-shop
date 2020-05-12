@@ -1,8 +1,6 @@
 package com.mkolongo.product_shop.domain.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,18 +8,28 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity(name = "users")
+@Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @OneToMany(mappedBy = "user")
+    private Set<GroceryList> groceryLists;
+
+//    @Column(name = "profile_pic_url")
+//    private String profilePicUrl;
+
+//    @OneToMany
+//    @JoinColumn(name = "friend_id", referencedColumnName = "id")
+//    private Set<User> friends;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

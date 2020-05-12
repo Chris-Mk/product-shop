@@ -13,7 +13,7 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>product_shop</name>
-    <description>Product Shop is a system that registers users, categories, products and orders.</description>
+    <description>Product Shop is a system that registers users, categories, products and groceryLists.</description>
 
     <properties>
         <java.version>13</java.version>
@@ -40,18 +40,21 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
-
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.h2database</groupId>-->
+<!--            <artifactId>h2</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -72,6 +75,12 @@
             <artifactId>modelmapper</artifactId>
             <version>2.3.6</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.cloudinary</groupId>-->
+<!--            <artifactId>cloudinary-core</artifactId>-->
+<!--            <version>1.25.0</version>-->
+<!--        </dependency>-->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,6 +97,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

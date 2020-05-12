@@ -13,18 +13,28 @@ import java.util.Set;
 @Table(name = "products")
 public class Product extends NamedEntity {
 
-    @Column(columnDefinition = "text")
+    @Column(nullable = false)
+    private String manufacturer;
+
+    @Column(nullable = false)
     private String description;
 
-    @Column(precision = 10, scale = 2, nullable = false)
+    @Column(precision = 6, scale = 2, nullable = false)
     private BigDecimal price;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+//    @Column(name = "image_url")
+//    private String imageUrl;
 
-    @ManyToMany
-    @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-    private Set<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @Column(name = "in_promo")
+    private boolean inPromo;
+
+    @Column(name = "in_stock")
+    private boolean inStock;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<GroceryList> groceryLists;
 }

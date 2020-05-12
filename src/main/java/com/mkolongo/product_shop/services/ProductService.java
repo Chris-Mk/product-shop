@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface ProductService {
 
-    ProductServiceModel add(ProductServiceModel serviceModel);
+    ProductServiceModel addProduct(ProductServiceModel serviceModel);
 
     Set<ProductServiceModel> getAll();
 

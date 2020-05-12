@@ -41,12 +41,13 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("model", new UserRegisterModel());
+        model.addAttribute("userRegisterModel", new UserRegisterModel());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("model") UserRegisterModel bindingModel, BindingResult bindingResult) {
+    public String register(@Valid @ModelAttribute("userRegisterModel") UserRegisterModel bindingModel,
+                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
